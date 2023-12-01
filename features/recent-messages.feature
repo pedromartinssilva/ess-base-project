@@ -17,9 +17,11 @@ Scenario: Excluir uma Conversa
     And visualiza uma conversa
     When seleciona a opção para excluir essa conversa
     And confirma a exclusão
+    And visualiza uma conversa limitada
+    When opta por excluí-la
+    And o usuário confirma a exclusão
     Then a conversa selecionada é removida da lista
     And não aparece mais na tela de "Conversas Recentes"
-<<<<<<< HEAD
     And outras conversas são ajustadas de acordo
 
 Scenario: Selecionar e Abrir uma Conversa
