@@ -11,3 +11,11 @@ Scenario: Fixar uma Conversa no Topo
     And é mantida lá independentemente da ordem cronológica
     And outras conversas são ajustadas de acordo
     And a conversa fixada é destacada como tal
+
+Scenario: Excluir uma Conversa
+    Given o usuário está na página de "Conversas Recentes"
+    And visualiza uma conversa limitada
+    When opta por excluí-la
+    And confirma a exclusão
+    Then a conversa selecionada é removida da lista
+    And não aparece mais na tela de "Conversas Recentes"
