@@ -36,8 +36,8 @@ Scenario: Buscar uma Conversa
     And filtram as outras conversas de acordo com a pesquisa realizada
 
 Scenario: Desfixar uma Conversa do Topo
-  Given o usuário está na página de "Conversas Recentes"
-  And visualiza uma conversa fixada no topo da lista
-  When seleciona a opção para desfixar essa conversa
-  Then a conversa é movida para a posição original na lista, seguindo a ordem cronológica
-  And outras conversas são ajustadas de acordo
+    Given o usuário está na página de "Conversas Recentes"
+    And visualiza uma conversa fixada no topo da lista
+    When seleciona a opção para desfixar essa conversa
+    Then a conversa é movida para a posição original na lista, seguindo a ordem cronológica
+    And outras conversas são ajustadas de acordo
