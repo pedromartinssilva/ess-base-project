@@ -33,3 +33,13 @@ Feature: Gerenciamento de Usuários
     Então o usuário recebe uma mensagem de confirmação indicando que as informações foram atualizadas com sucesso
     Caso haja algum problema
     Então o sistema fornece uma mensagem de erro especificando a questão a ser corrigida
+
+  Cenário 4: Remoção de Usuários
+    Dado que o usuário está na seção de configurações da conta
+    E encontra a opção de remover seu login
+    Quando ele decide remover o login
+    E antes de confirmar a remoção, o sistema solicita suas credenciais para garantir a autenticidade
+    Então o sistema processa a solicitação
+    E efetua a remoção do login associado à conta
+    Então o usuário recebe uma mensagem de confirmação, informando que a conta foi removida com sucesso
+    E ao mesmo tempo, ele é deslogado automaticamente, encerrando qualquer sessão ativa
