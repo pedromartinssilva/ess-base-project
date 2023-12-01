@@ -8,4 +8,4 @@ Quando um usuário criar um grupo, ele e somente ele será o administrador inici
 
 Cenário 3: Adicionar participantes.
 
-Quando um administrador de um grupo quiser adicionar um novo participante naquela conversa, ele deve abrir as informações do grupo e tentar adicionar um novo usuário que está em sua lista de contatos. Após inserido, todos os membros do grupo receberão a notificação que um novo membro entrou na conversa.
+Quando um administrador de um grupo quiser adicionar um novo participante naquela conversa, ele deve abrir as informações do grupo e tentar adicionar um novo usuário que está em sua lista de contatos. Após inserido, todos os membros do grupo receberão a notificação que um novo membro entrou na conversa. Aletração do ultimo cenário.
