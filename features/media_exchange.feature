@@ -1,0 +1,1 @@
+Allows the user to send and receive media (photos, videos and audio)
