@@ -20,3 +20,16 @@ Feature: Gerenciamento de Usuários
     E recebe uma mensagem de login bem-sucedida
     Caso contrário, se as credenciais estiverem incorretas
     Então uma mensagem de erro é exibida indicando a necessidade de revisão das informações inseridas
+  Feature: Gerenciamento de Conta
+
+  Cenário 3: Atualização de Dados
+  
+    Dado que o usuário está na seção de configurações de conta
+    Quando ele edita os campos, como nome, endereço de e-mail e outras informações pessoais
+    E realiza as modificações desejadas
+    Então o sistema processa as atualizações
+    E verifica a consistência dos novos dados
+    Se tudo estiver correto
+    Então o usuário recebe uma mensagem de confirmação indicando que as informações foram atualizadas com sucesso
+    Caso haja algum problema
+    Então o sistema fornece uma mensagem de erro especificando a questão a ser corrigida
