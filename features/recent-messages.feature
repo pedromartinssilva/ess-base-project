@@ -1,6 +1,6 @@
 Feature: Lista de Conversas Recentes
     As a usuário
-    I want ver a lista de conversas recentes
+    I want ver a lista de conversas recentes ordenada cronologicamente
     So that posso acompanhar as interações mais recentes
 
 Scenario: Fixar uma Conversa no Topo
@@ -19,6 +19,7 @@ Scenario: Excluir uma Conversa
     And confirma a exclusão
     Then a conversa selecionada é removida da lista
     And não aparece mais na tela de "Conversas Recentes"
+<<<<<<< HEAD
     And outras conversas são ajustadas de acordo
 
 Scenario: Selecionar e Abrir uma Conversa
