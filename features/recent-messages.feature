@@ -14,8 +14,9 @@ Scenario: Fixar uma Conversa no Topo
 
 Scenario: Excluir uma Conversa
     Given o usuário está na página de "Conversas Recentes"
-    And visualiza uma conversa limitada
-    When opta por excluí-la
+    And visualiza uma conversa
+    When seleciona a opção para excluir essa conversa
     And confirma a exclusão
     Then a conversa selecionada é removida da lista
     And não aparece mais na tela de "Conversas Recentes"
+    And outras conversas são ajustadas de acordo
