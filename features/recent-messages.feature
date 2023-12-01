@@ -42,5 +42,5 @@ Scenario: Desfixar uma Conversa do Topo
     Given o usuário está na página de "Conversas Recentes"
     And visualiza uma conversa fixada no topo da lista
     When seleciona a opção para desfixar essa conversa
-    Then a conversa é movida para a posição original na lista, seguindo a ordem cronológica
+    Then a conversa é movida para a posição em que segue a ordem cronológica
     And outras conversas são ajustadas de acordo
