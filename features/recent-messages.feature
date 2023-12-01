@@ -10,3 +10,4 @@ Scenario: Fixar uma Conversa no Topo
     Then a conversa é movida para o topo da lista
     And é mantida lá independentemente da ordem cronológica
     And outras conversas são ajustadas de acordo
+    And a conversa fixada é destacada como tal
