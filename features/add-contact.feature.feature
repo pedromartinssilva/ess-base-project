@@ -11,3 +11,5 @@ Scenario: Adição de Novo Contato na Lista
     when o usuário confirma a adição do novo contato
     Then o usuário é redirecionado de volta à página de "Lista de Contatos"
     And o novo contato está incorporado à lista de contatos
+
+mudança 1
