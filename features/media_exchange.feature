@@ -17,4 +17,3 @@ When “Bia” solicita ao sistema que faça o donload da mídia “foto.png”
 Then o sistema armazena a mídia “foto.png” para “Bia”
 And a mídia “foto.png” pode ser acessada por “Bia”
 Then "Bia" has access to "foto.png"
-Then "Bia" can send "foto.png" to another user
