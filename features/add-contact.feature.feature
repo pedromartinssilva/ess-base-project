@@ -1,7 +1,7 @@
-Feature: Adição de Contatos na Lista
-    As um usuário da Lista de Contatos
-    I want adicionar novos contatos à lista manualmente
-    So that posso manter e gerenciar uma lista atualizada de contatos
+Feature: Lista de contatos
+    As um usuário
+    I want acessar e gerenciar lista de contatos
+    So that posso manter e gerenciar uma lista atualizada
 
 Scenario: Adição de Novo Contato na Lista
     Given o usuário está na página de "Lista de Contatos"
@@ -10,5 +10,3 @@ Scenario: Adição de Novo Contato na Lista
     And o usuário preenche manualmente as informações do novo contato
     when o usuário confirma a adição do novo contato
     Then o usuário é redirecionado de volta à página de "Lista de Contatos"
-    And o novo contato está incorporado à lista de contatos
-
