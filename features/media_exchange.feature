@@ -1,5 +1,5 @@
 feature: 
-As a usuário
+As a usuario
 I want to store and remove media from history
 So that I can control the media I see in my history
 
