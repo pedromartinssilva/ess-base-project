@@ -10,3 +10,4 @@ Scenario: Adição de Novo Contato na Lista
     And o usuário preenche manualmente as informações do novo contato
     when o usuário confirma a adição do novo contato
     Then o usuário é redirecionado de volta à página de "Lista de Contatos"
+    And o novo contato está incorporado à lista de contatos
