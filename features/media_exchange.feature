@@ -20,3 +20,5 @@ When “Bia” solicita ao sistema que faça o donload da mídia “foto.png”
 Then o sistema armazena a mídia “foto.png” para “Bia”
 And a mídia “foto.png” pode ser acessada por “Bia”
 Then "Bia" has access to "foto.png"
+
+Scenario: Remove media for single user
