@@ -1,6 +1,6 @@
 feature: Allows the user to send and receive media (photos, videos and audio)
 
-Scenario: Removes media from message history
+Scenario: Removes media from history
 Given os usuários “Bia” e “Letícia” trocaram mensagens
 And “Leticia” enviou a mídia “foto.png” para “Bia”
 And “Bia” fez o download da mídia “foto.png” enviada por “Letícia”
