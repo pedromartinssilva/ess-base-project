@@ -27,3 +27,5 @@ Scenario: Busca por Contato
     When o usuário utiliza a função de busca para encontrar um contato específico
     Then o sistema exibe os resultados da busca, destacando o contato desejado
     And os demais contatos na lista são filtrados de acordo com os critérios da pesquisa
+    And o usuário pode visualizar os contatos que correspondem à busca
+    And o usuário pode interagir com o contato desejado a partir dos resultados da busca
