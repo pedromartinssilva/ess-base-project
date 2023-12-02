@@ -11,3 +11,19 @@ Scenario: Adição de Novo Contato na Lista
     when o usuário confirma a adição do novo contato
     Then o usuário é redirecionado de volta à página de "Lista de Contatos"
     And o novo contato está incorporado à lista de contatos
+
+Scenario: Informações do Contato
+    Given o usuário está na página de "Lista de Contatos"
+    And o usuário possui contatos na lista
+    When o usuário clica no nome de um contato específico
+    Then uma nova tela é apresentada com as informações do contato selecionado
+    And o usuário pode visualizar detalhes como nome, foto, status e outras informações relevantes
+    And o usuário tem a opção de iniciar uma conversa com o contato
+    And ao selecionar a opção de iniciar conversa, a tela de conversa é aberta
+
+Scenario: Busca por Contato
+    Given o usuário está na página de "Lista de Contatos"
+    And o usuário possui contatos na lista
+    When o usuário utiliza a função de busca para encontrar um contato específico
+    Then o sistema exibe os resultados da busca, destacando o contato desejado
+    And os demais contatos na lista são filtrados de acordo com os critérios da pesquisa
