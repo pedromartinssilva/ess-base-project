@@ -1,4 +1,7 @@
-feature: Allows the user to send and receive media (photos, videos and audio)
+feature: 
+As a usuário
+I want to store and remove media from history
+So that I can control the media I see in my history
 
 Scenario: Removes media from conversation history
 Given os usuários “Bia” e “Letícia” trocaram mensagens
