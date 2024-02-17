@@ -6,6 +6,7 @@ import setupRoutes from './routes/index';
 import { HttpError } from './utils/errors/http.error';
 import { FailureResult } from './utils/result';
 import Database from './database';
+import ChatDatabase from './database/chats.database';
 
 const app: express.Express = express();
 app.use(express.json());
@@ -17,6 +18,18 @@ app.use(
 );
 
 setupRoutes(app);
+
+// Rota para obter conversas recentes
+app.get('/api/chats', async (req, res, next) => {
+  try {
+    const chatDatabase = ChatDatabase.getInstance();
+    const recentConversations = chatDatabase.getAllChats(); // Método a ser implementado para obter todos os chats do banco de dados
+
+    res.json(recentConversations);
+  } catch (error) {
+    next(error);
+  }
+});
 
 app.use(
   (
