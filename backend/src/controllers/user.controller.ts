@@ -1,10 +1,10 @@
 import UserModel from '../models/user.model';
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import UserDatabase from '../database/user.register.database';
+import UserDatabase from '../services/user.register.database';
 
 // Caminho para o arquivo JSON de usuários
-const usersFilePath = 'C:/Users/Bia/ess-base-project/backend/src/database_Json/users.json';
+const usersFilePath = 'C:/Users/Bia/ess-base-project/backend/src/database/users.json';
 
 // Crie uma instância do UserDatabase
 const userDatabase = new UserDatabase(usersFilePath);
