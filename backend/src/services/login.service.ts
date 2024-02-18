@@ -17,15 +17,6 @@ export const loadUsersFromFile = (): UserLogin[] => {
     }
 };
 
-// Função para salvar os usuários no arquivo JSON
-export const saveUsersToFile = (users: UserLogin[]): void => {
-    try {
-        fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-    } catch (error) {
-        console.error('Erro ao salvar usuários no arquivo:', error);
-    }
-};
-
 // Função de autenticação do usuário
 export const authenticateUser = async (email: string, password: string): Promise<UserLogin| null> => {
     try {

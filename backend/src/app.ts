@@ -10,6 +10,7 @@ import Database from './database';
 import ContactsDatabase from './database/contacts.database';
 import userRoutes from './routes/user.route';
 import loginRouter from './routes/user_login.route'; 
+import updateRouter from './routes/update.route';
 
 const app: express.Express = express();
 
@@ -28,8 +29,7 @@ setupRoutes(app);
 // Adicione as rotas do usuário à aplicação
 app.use('/api/users', userRoutes);
 app.use('/api/users', loginRouter);
-
-
+app.use('/api/users', updateRouter);
 
 // Rota para obter lista de contatos
 app.get('/api/contacts', async (req, res, next) => {
