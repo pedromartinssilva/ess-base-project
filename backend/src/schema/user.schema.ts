@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 import { IUser } from "../interfaces/user.interface";
 
 // Definindo o schema do usuário
