@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { UserLogin } from '../interfaces/user.login.interface';
 
 const usersFilePath = './src/database/users.json';
+
 // Função para carregar os usuários do arquivo JSON
 export const loadUsersFromFile = (): UserLogin[] => {
     try {

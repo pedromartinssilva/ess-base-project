@@ -1,6 +1,5 @@
 import UserModel from '../models/user.model';
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
 import UserDatabase from '../services/user.register.database';
 
 // Caminho para o arquivo JSON de usuários
