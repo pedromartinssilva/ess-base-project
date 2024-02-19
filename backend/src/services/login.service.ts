@@ -4,7 +4,9 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import { UserLogin } from '../interfaces/user.login.interface';
 
-const usersFilePath = 'C:/Users/Bia/ess-base-project/backend/src/database/users.json';
+const path = require('path');
+const databaseDirectory = path.join(__dirname, '..', 'database');
+const usersFilePath = path.join(databaseDirectory, 'users.json');
 
 // Função para carregar os usuários do arquivo JSON
 export const loadUsersFromFile = (): UserLogin[] => {
