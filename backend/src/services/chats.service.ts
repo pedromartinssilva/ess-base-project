@@ -6,10 +6,27 @@ const filePath = path.join(__dirname, '..', 'database', 'chats.json');
 
 export const addChat = (newChat: any) => {
     try {
-        let chats: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        let chats: IChat[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        // Adicionar nova conversa
         chats.push(newChat);
-        fs.writeFileSync(filePath, JSON.stringify(chats));
-        return chats;
+
+        // Separar chats fixadas das não fixadas
+        const fixed = chats.filter(conv => conv.fixed);
+        const notFixed = chats.filter(conv => !conv.fixed);
+
+        // Ordenar chats não fixadas com base no timestamp da última mensagem (a mais recente)
+        notFixed.sort((a: any, b: any) => {
+            return new Date(b.messages[0].timestamp).getTime() - new Date(a.messages[0].timestamp).getTime();
+        });
+
+        // Concatenar chats fixadas e não fixadas, mantendo as fixadas no topo
+        const sortedChats = [...fixed, ...notFixed];
+
+        // Escrever os chats de volta no arquivo
+        fs.writeFileSync(filePath, JSON.stringify(sortedChats));
+
+        return sortedChats;
     } catch (error: any) {
         throw new Error('Erro ao adicionar conversa: ' + (error as Error).message);
     }
