@@ -83,4 +83,3 @@ class RecoveryController {
 }
 
 export default RecoveryController;
-recovery.controller
