@@ -22,7 +22,14 @@ router.get('/', (req: Request, res: Response) => {
     }
 });
 
-export const addChatRouter = router; // Exportando o router
-export const getChatsRouter = router; // Exportando o router
+router.delete('/:id', (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+        const deletedChat = chatsService.deleteChat(id);
+        res.json(deletedChat);
+    } catch (error: any) {
+        res.status(500).json({ message: 'Erro ao excluir conversa: ' + (error as Error).message });
+    }
+});
 
 export default router; // Exportação padrão do router
