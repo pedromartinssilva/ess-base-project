@@ -45,3 +45,27 @@ export const deleteChat = (id: string) => {
         throw new Error('Erro ao excluir conversa: ' + (error as Error).message);
     }
 };
+
+export const searchChats = (keyword: string) => {
+    try {
+        // Obter todas as conversas recentes
+        const conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        // Filtrar conversas pelo nome do contato/grupo ou pelo conteúdo da mensagem
+        const conversasFiltradas = conversas.filter(conversa => {
+            // Verificar se a palavra-chave está presente no nome do contato/grupo
+            const nomeContatoGrupo = conversa.participants.join(' ');
+            if (nomeContatoGrupo.toLowerCase().includes(keyword.toLowerCase())) {
+                return true;
+            }
+            return false;
+        });
+
+        // Ordenar as conversas filtradas em ordem alfabética pelo nome do contato/grupo
+        conversasFiltradas.sort((a, b) => a.participants.join(' ').toLowerCase().localeCompare(b.participants.join(' ').toLowerCase()));
+
+        return conversasFiltradas;
+    } catch (error: any) {
+        throw new Error('Erro ao buscar conversas: ' + (error as Error).message);
+    }
+}

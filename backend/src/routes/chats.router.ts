@@ -32,4 +32,14 @@ router.delete('/:id', (req: Request, res: Response) => {
     }
 });
 
+router.get('/search', (req: Request, res: Response) => {
+    const keyword: string = req.query.keyword as string; // Extrair a palavra-chave da consulta
+    try {
+        const chats = chatsService.searchChats(keyword);
+        res.json(chats);
+    } catch (error: any) {
+        res.status(500).json({ message: 'Erro ao buscar conversas: ' + (error as Error).message });
+    }
+});
+
 export default router; // Exportação padrão do router
