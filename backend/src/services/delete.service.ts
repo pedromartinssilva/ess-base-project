@@ -4,7 +4,7 @@ import fs from 'fs';
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces/user.interface';
 
-const usersFilePath = 'caminho/para/o/arquivo/users.json';
+const usersFilePath = 'C:/Users/Bia/ess-base-project/backend/src/database/users.json';
 
 // Função para carregar os usuários do arquivo JSON
 const loadUsersFromFile = (): IUser[] => {
@@ -39,14 +39,20 @@ export const deleteUser = async (email: string, password: string): Promise<boole
     }
 
     // Verifique se a senha fornecida corresponde à senha armazenada
-    const isPasswordValid = await bcrypt.compare(password, users[userIndex].password);
+    const isPasswordValid = true;
+    if(password == users[userIndex].password){
+      const isPasswordValid = true;
+    }else{
+      const isPasswordValid = false;
+    }
+    
     if (!isPasswordValid) {
       return false; // Senha incorreta
     }
 
     // Remova o usuário do array de usuários
+  
     users.splice(userIndex, 1);
-
     // Salve os usuários atualizados no arquivo JSON
     saveUsersToFile(users);
 
