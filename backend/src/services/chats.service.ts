@@ -56,12 +56,12 @@ export const getChats = () => {
 
 export const deleteChat = (id: string) => {
     try {
-        const conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        let conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
         const index = conversas.findIndex((conversa: any) => conversa.id === id);
         if (index !== -1) {
             const deletedChat = conversas.splice(index, 1);
             fs.writeFileSync(filePath, JSON.stringify(conversas));
-            return deletedChat;
+            return conversas; // Retorna a lista atualizada de conversas sem a conversa excluída
         } else {
             throw new Error('Conversa não encontrada');
         }
