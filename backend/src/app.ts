@@ -29,7 +29,7 @@ setupRoutes(app);
 // Adicione as rotas do usuário à aplicação
 app.use('/api/users', userRoutes);
 app.use('/api/users', loginRouter);
-app.use('/api/users', updateRouter);
+app.use('/api/users', updateRouter); // Adicione a rota de atualização aqui
 
 // Rota para obter lista de contatos
 app.get('/api/contacts', async (req, res, next) => {
