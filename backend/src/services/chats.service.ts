@@ -1,6 +1,8 @@
 import fs from 'fs';
 
-const filePath = '../database/chats.json';
+import path from 'path';
+
+const filePath = path.join(__dirname, '..', 'database', 'chats.json');
 
 export const addChat = (novaConversa: any) => {
     try {
@@ -15,9 +17,9 @@ export const addChat = (novaConversa: any) => {
 
 export const getChats = () => {
     try {
-        const conversas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        return conversas;
+        const data = fs.readFileSync(filePath, 'utf-8');
+        return JSON.parse(data);
     } catch (error: any) {
-        throw new Error('Erro ao obter conversas: ' + (error as Error).message);
+        throw new Error('(service) Erro ao obter conversas: ' + (error as Error).message);
     }
 };

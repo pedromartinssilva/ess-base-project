@@ -18,11 +18,11 @@ router.get('/', (req: Request, res: Response) => {
         const conversas = chatsService.getChats(); // Usando getChats do serviço
         res.json(conversas);
     } catch (error: any) {
-        res.status(500).json({ message: 'Erro ao obter conversas: ' + (error as Error).message });
+        res.status(500).json({ message: '(router) Erro ao obter conversas: ' + (error as Error).message });
     }
 });
 
-export const addChats = router; // Exportando o router
-export const getChats = router; // Exportando o router
+export const addChatRouter = router; // Exportando o router
+export const getChatsRouter = router; // Exportando o router
 
 export default router; // Exportação padrão do router
