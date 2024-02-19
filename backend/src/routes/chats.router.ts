@@ -42,4 +42,26 @@ router.get('/search', (req: Request, res: Response) => {
     }
 });
 
+// Rota para fixar uma conversa
+router.put('/:id/fix', (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+        chatsService.fixConversation(id);
+        res.json({ message: 'Conversa fixada com sucesso' });
+    } catch (error: any) {
+        res.status(500).json({ message: 'Erro ao fixar a conversa: ' + (error as Error).message });
+    }
+});
+
+// Rota para desafixar uma conversa
+router.put('/:id/unfix', (req: Request, res: Response) => {
+    const id = req.params.id;
+    try {
+        chatsService.unfixConversation(id);
+        res.json({ message: 'Conversa desafixada com sucesso' });
+    } catch (error: any) {
+        res.status(500).json({ message: 'Erro ao desafixar a conversa: ' + (error as Error).message });
+    }
+});
+
 export default router; // Exportação padrão do router

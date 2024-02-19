@@ -1,15 +1,15 @@
 import fs from 'fs';
-
+import { IChat } from '../interfaces/chat.interface';
 import path from 'path';
 
 const filePath = path.join(__dirname, '..', 'database', 'chats.json');
 
-export const addChat = (novaConversa: any) => {
+export const addChat = (newChat: any) => {
     try {
-        let conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-        conversas.push(novaConversa);
-        fs.writeFileSync(filePath, JSON.stringify(conversas));
-        return conversas;
+        let chats: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        chats.push(newChat);
+        fs.writeFileSync(filePath, JSON.stringify(chats));
+        return chats;
     } catch (error: any) {
         throw new Error('Erro ao adicionar conversa: ' + (error as Error).message);
     }
@@ -17,14 +17,21 @@ export const addChat = (novaConversa: any) => {
 
 export const getChats = () => {
     try {
-        const conversas = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        const chats: IChat[]= JSON.parse(fs.readFileSync(filePath, 'utf-8'));
         
-        // Ordenar as conversas com base no timestamp da última mensagem (a mais recente)
-        conversas.sort((a: any, b: any) => {
+        // Separar chats fixadas das não fixadas
+        const fixed = chats.filter(conv => conv.fixed);
+        const notFixed = chats.filter(conv => !conv.fixed);
+
+        // Ordenar chats não fixadas com base no timestamp da última mensagem (a mais recente)
+        notFixed.sort((a: any, b: any) => {
             return new Date(b.messages[0].timestamp).getTime() - new Date(a.messages[0].timestamp).getTime();
         });
 
-        return conversas;
+        // Concatenar chats fixadas e não fixadas, mantendo as fixadas no topo
+        const sortedChats = [...fixed, ...notFixed];
+
+        return sortedChats;
     } catch (error: any) {
         throw new Error('(service) Erro ao obter conversas: ' + (error as Error).message);
     }
@@ -74,3 +81,49 @@ export const searchChats = (keyword: string) => {
         throw new Error('Erro ao buscar conversas: ' + (error as Error).message);
     }
 }
+
+export const fixConversation = (id: string) => {
+    try {
+        let conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        // Encontrar a conversa com o ID especificado
+        const conversa = conversas.find(conv => conv.id === id);
+
+        if (conversa) {
+            // Definir o campo 'fixed' como true para fixar a conversa no topo da lista
+            conversa.fixed = true;
+
+            // Atualizar o arquivo JSON com as conversas modificadas
+            fs.writeFileSync(filePath, JSON.stringify(conversas));
+
+            return conversa;
+        } else {
+            throw new Error(`Conversa com o ID '${id}' não encontrada.`);
+        }
+    } catch (error: any) {
+        throw new Error('Erro ao fixar a conversa: ' + (error as Error).message);
+    }
+};
+
+export const unfixConversation = (id: string) => {
+    try {
+        let conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        // Encontrar a conversa com o ID especificado
+        const conversa = conversas.find(conv => conv.id === id);
+
+        if (conversa) {
+            // Definir o campo 'fixed' como false para desafixar a conversa da lista fixada
+            conversa.fixed = false;
+
+            // Atualizar o arquivo JSON com as conversas modificadas
+            fs.writeFileSync(filePath, JSON.stringify(conversas));
+
+            return conversa;
+        } else {
+            throw new Error(`Conversa com o ID '${id}' não encontrada.`);
+        }
+    } catch (error: any) {
+        throw new Error('Erro ao desafixar a conversa: ' + (error as Error).message);
+    }
+};
