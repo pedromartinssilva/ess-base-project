@@ -10,6 +10,7 @@ const messageSchema: Schema = new Schema<IMessage>({
 });
 
 const chatSchema: Schema = new Schema<IChat>({
+  id: {type: String, required: true, unique: true},
   participants: [{type: String, required: true}],
   fixed: { type: Boolean, default: false },
   messages: [messageSchema]

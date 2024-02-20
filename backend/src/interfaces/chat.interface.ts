@@ -6,7 +6,8 @@ export interface IMessage {
     media: boolean;
 }
   
-export interface IChat extends Document{
+export interface IChat {
+    id: string;
     participants: string[]; 
     fixed: boolean;
     messages: IMessage[];
