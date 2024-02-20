@@ -99,7 +99,7 @@ export const searchChats = (keyword: string) => {
     }
 }
 
-export const fixConversation = (id: string) => {
+export const fixChat = (id: string) => {
     try {
         let conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
@@ -122,7 +122,7 @@ export const fixConversation = (id: string) => {
     }
 };
 
-export const unfixConversation = (id: string) => {
+export const unfixChat = (id: string) => {
     try {
         let conversas: any[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 
@@ -143,4 +143,13 @@ export const unfixConversation = (id: string) => {
     } catch (error: any) {
         throw new Error('Erro ao desafixar a conversa: ' + (error as Error).message);
     }
+};
+
+export default {
+    addChat,
+    getChats,
+    deleteChat,
+    searchChats,
+    fixChat,
+    unfixChat
 };

@@ -46,7 +46,7 @@ router.get('/search', (req: Request, res: Response) => {
 router.put('/:id/fix', (req: Request, res: Response) => {
     const id = req.params.id;
     try {
-        chatsService.fixConversation(id);
+        chatsService.fixChat(id);
         res.json({ message: 'Conversa fixada com sucesso' });
     } catch (error: any) {
         res.status(500).json({ message: 'Erro ao fixar a conversa: ' + (error as Error).message });
@@ -57,7 +57,7 @@ router.put('/:id/fix', (req: Request, res: Response) => {
 router.put('/:id/unfix', (req: Request, res: Response) => {
     const id = req.params.id;
     try {
-        chatsService.unfixConversation(id);
+        chatsService.unfixChat(id);
         res.json({ message: 'Conversa desafixada com sucesso' });
     } catch (error: any) {
         res.status(500).json({ message: 'Erro ao desafixar a conversa: ' + (error as Error).message });
