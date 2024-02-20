@@ -145,6 +145,20 @@ export const unfixChat = (id: string) => {
     }
 };
 
+export const resetChats = () => {
+    try {
+        // Cria um array vazio para substituir os chats existentes
+        const emptyChats: IChat[] = [];
+        
+        // Escreve o array vazio de volta no arquivo, limpando seu conteúdo
+        fs.writeFileSync(filePath, JSON.stringify(emptyChats));
+
+        return 'Chats resetados com sucesso.';
+    } catch (error: any) {
+        throw new Error('Erro ao resetar os chats: ' + (error as Error).message);
+    }
+};
+
 export default {
     addChat,
     getChats,
