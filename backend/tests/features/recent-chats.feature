@@ -1,5 +1,5 @@
 Scenario: Obter todos os chats recentes
-    Given que o método getChats retorna uma lista de conversas                                                                                                                                                                                                                                                                                                                                                               uma lista de conversas
+    Given o método getChats retorna uma lista de conversas                                                                                                                                                                                                                                                                                                                                                               uma lista de conversas
     And a conversa com id "1" e participantes "Pedro" e "Letícia" está na lista
     When uma requisição GET for enviada para "/api/chats"
     Then o status da resposta deve ser "200"

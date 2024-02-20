@@ -15,7 +15,7 @@ defineFeature(feature, test => {
     });
 
     test('Obter todos os chats recentes', ({ given, when, then, and }) => {
-        given(/^que o método getChats retorna uma lista de conversas$/, () => {});
+        given(/^o método getChats retorna uma lista de conversas$/, () => {});
 
         and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
             // Construa uma nova mensagem genérica
