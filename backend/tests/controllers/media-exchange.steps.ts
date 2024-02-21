@@ -61,7 +61,6 @@ defineFeature(feature, (test) => {
     });
 
     when(/^uma requisição DELETE for enviada para "(.*)"$/, async (url) => {
-      console.log(messagesDatabase);
       response = await request.delete(url);
     });
 
