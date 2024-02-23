@@ -392,4 +392,96 @@ defineFeature(feature, test => {
             expect(response.body.message).toContain(msg);
         });
     });
+
+    test('busca bem-sucedida', ({ given, when, then, and }) => {
+        given(/^o método searchChats retorna uma lista de conversas$/, () => {});
+    
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+    
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+    
+            chatsService.addChat(newChat);
+        });
+        
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+    
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+    
+            chatsService.addChat(newChat);
+        });
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+    
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+    
+            chatsService.addChat(newChat);
+        });
+    
+        when(/^uma requisição GET for enviada para "(.*)"$/, async (url) => {
+            response = await request.get(url);
+        });
+    
+        then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+            expect(response.status).toBe(parseInt(statusCode, 10));
+        });
+    
+        and(/^o JSON da resposta deve conter a conversa com id "(.*)" e participantes "(.*)" e "(.*)"$/, (id, participant1, participant2) => {
+            const expectedChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [{
+                    content: '',
+                    sender: participant1,
+                    receiver: participant2,
+                    id: '1',
+                    media: false,
+                    timestamp: expect.any(String)
+                }]
+            };
+            expect(response.body).toContainEqual(expectedChat);
+        });
+    });    
 });
