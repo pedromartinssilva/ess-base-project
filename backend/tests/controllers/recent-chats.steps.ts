@@ -135,6 +135,71 @@ defineFeature(feature, test => {
         });
     });
 
+    test('remoção malsucedida de uma conversa', ({ given, when, then, and }) => {
+        given(/^o método deleteChat retorna uma lista de conversas$/, () => {});
+    
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            // Construa uma nova mensagem genérica
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            // Construa um novo chat
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+            
+            // adicona chat a database
+            chatsService.addChat(newChat);
+        });
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            // Construa uma nova mensagem genérica
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            // Construa um novo chat
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+            
+            // adicona chat a database
+            chatsService.addChat(newChat);
+        });
+    
+        when(/^uma requisição DELETE for enviada para "(.*)"$/, async (url) => {
+            // Enviar a solicitação DELETE para o endpoint
+            response = await request.delete(url);
+        });
+    
+        then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+            expect(response.status).toBe(parseInt(statusCode, 10));
+        });
+    
+        and(/^o JSON da resposta deve conter a mensagem "(.*)"$/, (msg) => {
+            expect(response.body.message).toContain(msg);
+        });
+    });
+
     test('fixação bem-sucedida de uma conversa', ({ given, when, then, and }) => {
         given(/^o método fixChat retorna uma lista de conversas$/, () => {});
 
