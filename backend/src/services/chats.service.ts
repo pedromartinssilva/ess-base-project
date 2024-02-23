@@ -90,7 +90,7 @@ export const searchChats = (keyword: string) => {
 
         // Verificar se há resultados da busca
         if (conversasFiltradas.length === 0) {
-            return 'Nenhum resultado encontrado';
+            throw new Error('Nenhum resultado encontrado');
         } 
         
         return conversasFiltradas;

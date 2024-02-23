@@ -43,7 +43,6 @@ defineFeature(feature, test => {
         });
 
         when(/^uma requisição GET for enviada para "(.*)"$/, async (url) => {
-            // Enviar a solicitação GET para o endpoint
             response = await request.get(url);
         });
 
@@ -187,7 +186,6 @@ defineFeature(feature, test => {
         });
     
         when(/^uma requisição DELETE for enviada para "(.*)"$/, async (url) => {
-            // Enviar a solicitação DELETE para o endpoint
             response = await request.delete(url);
         });
     
@@ -311,6 +309,85 @@ defineFeature(feature, test => {
             expect(response.status).toBe(parseInt(statusCode, 10));
         });
 
+        and(/^o JSON da resposta deve conter a mensagem "(.*)"$/, (msg) => {
+            expect(response.body.message).toContain(msg);
+        });
+    });
+
+    test('busca malsucedida (nenhum resultado)', ({ given, when, then, and }) => {
+        given(/^o método searchChats retorna uma lista de conversas$/, () => {});
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+
+            chatsService.addChat(newChat);
+        });
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+
+            chatsService.addChat(newChat);
+        });
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+
+            chatsService.addChat(newChat);
+        });
+
+        when(/^uma requisição GET for enviada para "(.*)"$/, async (url) => {
+            response = await request.get(url);
+        });
+
+        then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+            expect(response.status).toBe(parseInt(statusCode, 10));
+        });
+    
         and(/^o JSON da resposta deve conter a mensagem "(.*)"$/, (msg) => {
             expect(response.body.message).toContain(msg);
         });
