@@ -9,22 +9,25 @@ const request = supertest(app);
 
 defineFeature(feature, test => {
     let response: supertest.Response;
+    let timestampValue: Date;
 
     beforeEach(() => {
         chatsService.resetChats();
     });
 
-    test('Obter todos os chats recentes', ({ given, when, then, and }) => {
+    test('obtenção todos os chats recentes', ({ given, when, then, and }) => {
         given(/^o método getChats retorna uma lista de conversas$/, () => {});
 
         and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
             // Construa uma nova mensagem genérica
+            timestampValue = new Date(Date.now());
             const newMessage: IMessage = {
                 content: '',
                 sender: participant1,
                 receiver: participant2,
                 id: '1',
-                media: false
+                media: false,
+                timestamp: timestampValue
             };
 
             // Construa um novo chat
@@ -42,7 +45,6 @@ defineFeature(feature, test => {
         when(/^uma requisição GET for enviada para "(.*)"$/, async (url) => {
             // Enviar a solicitação GET para o endpoint
             response = await request.get(url);
-            console.log(response.body);
         });
 
         then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
@@ -61,9 +63,89 @@ defineFeature(feature, test => {
                     sender: participant1,
                     receiver: participant2,
                     id: '1',
-                    media: false
+                    media: false,
+                    timestamp: timestampValue.toISOString()
                 }]
               });
         });
     });
+
+    test('remoção bem-sucedida de uma conversa', ({ given, when, then, and }) => {
+        given(/^o método deleteChat retorna uma lista de conversas$/, () => {});
+    
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            // Construa uma nova mensagem genérica
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            // Construa um novo chat
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+            
+            // adicona chat a database
+            chatsService.addChat(newChat);
+        });
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            // Construa uma nova mensagem genérica
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            // Construa um novo chat
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+            
+            // adicona chat a database
+            chatsService.addChat(newChat);
+        });
+    
+        when(/^uma requisição DELETE for enviada para "(.*)"$/, async (url) => {
+            // Enviar a solicitação DELETE para o endpoint
+            response = await request.delete(url);
+        });
+    
+        then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+            expect(response.status).toBe(parseInt(statusCode, 10));
+        });
+    
+        and(/^o JSON da resposta deve ser uma lista de conversas$/, () => {});
+
+        and(/^somente a conversa com id "(.*)" e participantes "(.*)" e "(.*)" deve estar na lista$/, (id, participant1, participant2) => {
+            // Verifica se a resposta contém apenas a conversa especificada
+            expect(response.body).toEqual([{
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages:[{
+                    content: '',
+                    sender: participant1,
+                    receiver: participant2,
+                    id: '1',
+                    media: false,
+                    timestamp: expect.any(String)}]
+                }]);
+        });        
+    });    
 });
