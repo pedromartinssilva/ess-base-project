@@ -146,6 +146,65 @@ defineFeature(feature, test => {
                     media: false,
                     timestamp: expect.any(String)}]
                 }]);
-        });        
-    });    
+        });
+    });
+
+    test('fixação bem-sucedida de uma conversa', ({ given, when, then, and }) => {
+        given(/^o método fixChat retorna uma lista de conversas$/, () => {});
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+
+            chatsService.addChat(newChat);
+        });
+
+        and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
+            timestampValue = new Date(Date.now());
+            const newMessage: IMessage = {
+                content: '',
+                sender: participant1,
+                receiver: participant2,
+                id: '1',
+                media: false,
+                timestamp: timestampValue
+            };
+
+            const newChat: IChat = {
+                id: id,
+                participants: [participant1, participant2],
+                fixed: false,
+                messages: [newMessage]
+            };
+
+            chatsService.addChat(newChat);
+        });
+
+        when(/^uma requisição PUT for enviada para "(.*)"$/, async (url) => {
+            response = await request.put(url);
+        });
+
+        then(/^o status da resposta deve ser "(.*)"$/, (statusCode) => {
+            expect(response.status).toBe(parseInt(statusCode, 10));
+        });
+
+        and(/^o JSON da resposta deve conter a mensagem "(.*)"$/, (msg) => {
+            expect(response.body.message).toContain(msg);
+        });
+
+    });
 });
