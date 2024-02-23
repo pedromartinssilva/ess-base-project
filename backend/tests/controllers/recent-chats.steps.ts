@@ -483,5 +483,9 @@ defineFeature(feature, test => {
             };
             expect(response.body).toContainEqual(expectedChat);
         });
-    });    
+    });
+    
+    afterAll(() => {
+        chatsService.resetChats();
+    });
 });
