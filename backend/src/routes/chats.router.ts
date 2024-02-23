@@ -26,7 +26,7 @@ router.delete('/:id', (req: Request, res: Response) => {
     const id = req.params.id;
     try {
         chatsService.deleteChat(id);
-        res.json({ message: 'Conversa deletada com sucesso' });
+        res.json({ message: 'Conversa removida com sucesso' });
     } catch (error: any) {
         res.status(500).json({ message: 'Erro ao excluir conversa: ' + (error as Error).message });
     }

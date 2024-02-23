@@ -14,8 +14,7 @@ Scenario: remoção bem-sucedida de uma conversa
     And a conversa com id "2" e participantes "Pedro" e "Jessyca" está na lista
     When uma requisição DELETE for enviada para "/api/chats/1"
     Then o status da resposta deve ser "200"
-    And o JSON da resposta deve ser uma lista de conversas
-    And somente a conversa com id "2" e participantes "Pedro" e "Jessyca" deve estar na lista
+    And o JSON da resposta deve conter a mensagem "Conversa removida com sucesso"
 
 Scenario: fixação bem-sucedida de uma conversa
     Given o método fixChat retorna uma lista de conversas

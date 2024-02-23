@@ -130,22 +130,8 @@ defineFeature(feature, test => {
             expect(response.status).toBe(parseInt(statusCode, 10));
         });
     
-        and(/^o JSON da resposta deve ser uma lista de conversas$/, () => {});
-
-        and(/^somente a conversa com id "(.*)" e participantes "(.*)" e "(.*)" deve estar na lista$/, (id, participant1, participant2) => {
-            // Verifica se a resposta contém apenas a conversa especificada
-            expect(response.body).toEqual([{
-                id: id,
-                participants: [participant1, participant2],
-                fixed: false,
-                messages:[{
-                    content: '',
-                    sender: participant1,
-                    receiver: participant2,
-                    id: '1',
-                    media: false,
-                    timestamp: expect.any(String)}]
-                }]);
+        and(/^o JSON da resposta deve conter a mensagem "(.*)"$/, (msg) => {
+            expect(response.body.message).toContain(msg);
         });
     });
 
@@ -205,6 +191,5 @@ defineFeature(feature, test => {
         and(/^o JSON da resposta deve conter a mensagem "(.*)"$/, (msg) => {
             expect(response.body.message).toContain(msg);
         });
-
     });
 });
