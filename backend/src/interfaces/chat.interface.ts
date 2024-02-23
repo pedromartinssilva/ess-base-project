@@ -4,6 +4,7 @@ export interface IMessage {
     receiver: string;
     id: string;
     media: boolean;
+    timestamp: Date;
 }
   
 export interface IChat {
