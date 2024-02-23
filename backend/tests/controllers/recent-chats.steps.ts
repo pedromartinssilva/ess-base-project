@@ -19,7 +19,6 @@ defineFeature(feature, test => {
         given(/^o método getChats retorna uma lista de conversas$/, () => {});
 
         and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
-            // Construa uma nova mensagem genérica
             timestampValue = new Date(Date.now());
             const newMessage: IMessage = {
                 content: '',
@@ -30,7 +29,6 @@ defineFeature(feature, test => {
                 timestamp: timestampValue
             };
 
-            // Construa um novo chat
             const newChat: IChat = {
                 id: id,
                 participants: [participant1, participant2],
@@ -38,7 +36,6 @@ defineFeature(feature, test => {
                 messages: [newMessage]
             };
             
-            // adicona chat a database
             chatsService.addChat(newChat);
         });
 
@@ -73,7 +70,6 @@ defineFeature(feature, test => {
         given(/^o método deleteChat retorna uma lista de conversas$/, () => {});
     
         and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
-            // Construa uma nova mensagem genérica
             timestampValue = new Date(Date.now());
             const newMessage: IMessage = {
                 content: '',
@@ -84,7 +80,6 @@ defineFeature(feature, test => {
                 timestamp: timestampValue
             };
 
-            // Construa um novo chat
             const newChat: IChat = {
                 id: id,
                 participants: [participant1, participant2],
@@ -92,12 +87,10 @@ defineFeature(feature, test => {
                 messages: [newMessage]
             };
             
-            // adicona chat a database
             chatsService.addChat(newChat);
         });
 
         and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
-            // Construa uma nova mensagem genérica
             timestampValue = new Date(Date.now());
             const newMessage: IMessage = {
                 content: '',
@@ -108,7 +101,6 @@ defineFeature(feature, test => {
                 timestamp: timestampValue
             };
 
-            // Construa um novo chat
             const newChat: IChat = {
                 id: id,
                 participants: [participant1, participant2],
@@ -116,12 +108,10 @@ defineFeature(feature, test => {
                 messages: [newMessage]
             };
             
-            // adicona chat a database
             chatsService.addChat(newChat);
         });
     
         when(/^uma requisição DELETE for enviada para "(.*)"$/, async (url) => {
-            // Enviar a solicitação DELETE para o endpoint
             response = await request.delete(url);
         });
     
@@ -138,7 +128,6 @@ defineFeature(feature, test => {
         given(/^o método deleteChat retorna uma lista de conversas$/, () => {});
     
         and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
-            // Construa uma nova mensagem genérica
             timestampValue = new Date(Date.now());
             const newMessage: IMessage = {
                 content: '',
@@ -149,7 +138,6 @@ defineFeature(feature, test => {
                 timestamp: timestampValue
             };
 
-            // Construa um novo chat
             const newChat: IChat = {
                 id: id,
                 participants: [participant1, participant2],
@@ -157,12 +145,10 @@ defineFeature(feature, test => {
                 messages: [newMessage]
             };
             
-            // adicona chat a database
             chatsService.addChat(newChat);
         });
 
         and(/^a conversa com id "(.*)" e participantes "(.*)" e "(.*)" está na lista$/, (id, participant1, participant2) => {
-            // Construa uma nova mensagem genérica
             timestampValue = new Date(Date.now());
             const newMessage: IMessage = {
                 content: '',
@@ -173,7 +159,6 @@ defineFeature(feature, test => {
                 timestamp: timestampValue
             };
 
-            // Construa um novo chat
             const newChat: IChat = {
                 id: id,
                 participants: [participant1, participant2],
@@ -181,7 +166,6 @@ defineFeature(feature, test => {
                 messages: [newMessage]
             };
             
-            // adicona chat a database
             chatsService.addChat(newChat);
         });
     
