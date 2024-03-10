@@ -58,7 +58,7 @@ const PasswordRecovery = () => {
         {message && <p>{message}</p>}
       </form>
         <Link to="/login">
-          <Button type="submit">Volta ao login</Button>
+          <Button type="submit">Voltar ao login</Button>
         </Link>      
     </section>
   );
