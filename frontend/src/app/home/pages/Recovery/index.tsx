@@ -3,8 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Button from "../../../../shared/components/Button";
 import styles from "./index.module.css";
+import axios from 'axios';
+import { useState } from 'react';
+import { Link } from "react-router-dom";
 
-// Definindo o esquema para o formulário de recuperação de senha
 const PasswordRecoveryFormSchema = z.object({
   email: z.string().email(),
 });
@@ -12,18 +14,28 @@ const PasswordRecoveryFormSchema = z.object({
 type PasswordRecoveryFormType = z.infer<typeof PasswordRecoveryFormSchema>;
 
 const PasswordRecovery = () => {
+  const [message, setMessage] = useState('');
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }, 
+    reset,
   } = useForm<PasswordRecoveryFormType>({
     resolver: zodResolver(PasswordRecoveryFormSchema),
   });
 
   const onSubmit: SubmitHandler<PasswordRecoveryFormType> = async (data) => {
-    // lógica do envio do e-mail de recuperação de senha
-    console.log(data.email);
+    console.log(data);
+    try {
+      const response = await axios.post('http://localhost:5001/api/recovery/createtoken', data);
+      reset();
+      setMessage(response.data.msg);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
 
   return (
     <section className={styles.container}>
@@ -43,7 +55,11 @@ const PasswordRecovery = () => {
           )}
         </div>
         <Button type="submit">Recuperar</Button>
+        {message && <p>{message}</p>}
       </form>
+        <Link to="/login">
+          <Button type="submit">Volta ao login</Button>
+        </Link>      
     </section>
   );
 };
