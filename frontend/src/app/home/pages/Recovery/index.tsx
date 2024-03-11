@@ -76,9 +76,6 @@ const PasswordRecovery = () => {
         <Button type="submit">Recover</Button>
         {message && <p>{message}</p>}
       </form>
-        {/* <Link to="/login">
-          <Button type="submit">Voltar ao login</Button>
-        </Link> */}
         <br></br><a href="/login" className={styles.underline}>Login here</a>
         <a className={styles.underline} onClick={handleForgotEmail}>Forgot my email</a>
     </section>
