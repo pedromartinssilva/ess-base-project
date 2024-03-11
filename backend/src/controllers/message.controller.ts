@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { FailureResult, SuccessResult } from '../utils/result';
 import MessagesDatabase from '../database/message.database';
+import NotificationsDatabase from '../database/notifications.database';
 import { IMessage } from '../interfaces/chat.interface';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,6 +12,7 @@ class MessageController {
   private prefix: string = '/messages';
   public router: Router;
   private database: MessagesDatabase = MessagesDatabase.getInstance();
+  private notificationsDatabase: NotificationsDatabase = NotificationsDatabase.getInstance();
 
   public storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -132,6 +134,8 @@ class MessageController {
     }
 
     this.database.addMessage(messageSent);
+    // Adiciona a notificação ao banco de dados de notificações
+    this.notificationsDatabase.addNotification(messageSent);    
     console.log(this.database);
 
     return new SuccessResult({
