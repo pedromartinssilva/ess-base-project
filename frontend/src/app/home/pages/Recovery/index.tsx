@@ -5,7 +5,7 @@ import Button from "../../../../shared/components/Button";
 import styles from "./index.module.css";
 import axios from 'axios';
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PasswordRecoveryFormSchema = z.object({
   email: z.string().email(),
@@ -24,6 +24,8 @@ const PasswordRecovery = () => {
     resolver: zodResolver(PasswordRecoveryFormSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<PasswordRecoveryFormType> = async (data) => {
     console.log(data);
     try {
@@ -31,11 +33,15 @@ const PasswordRecovery = () => {
       reset();
       setMessage(response.data.msg);
       console.log(response.data);
-    } catch (error) {
-      console.error(error);
+      navigate('/changepass', { state: { message: response.data.msg } });
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        setMessage(error.response.data.msg);
+      } else {
+        console.error(error);
+      }
     }
   };
-
 
   return (
     <section className={styles.container}>

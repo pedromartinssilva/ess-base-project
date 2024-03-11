@@ -3,6 +3,7 @@ import CreateTest from "./app/home/pages/CreateTest";
 import ListTests from "./app/home/pages/ListTests";
 import HelloWorld from "./app/home/pages/HelloWorld";
 import PasswordRecovery from "./app/home/pages/Recovery";
+import ChangePass from "./app/home/pages/ChangePass";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/recovery",
     Component: PasswordRecovery,
+  },
+  {
+    path: "/changepass",
+    Component: ChangePass,
   },
 ]);
 
