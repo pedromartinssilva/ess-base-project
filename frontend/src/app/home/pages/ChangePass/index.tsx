@@ -50,7 +50,7 @@ const ChangePass = () => {
   return (
     <section className={styles.container}>
       <h1 className={styles.title}>Password Recovery</h1>
-      {message && <p className={styles.info}>{message}</p>}
+      {message && <p id='successMessage' className={styles.info}>{message}</p>}
       <br />
 
       <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
@@ -106,7 +106,7 @@ const ChangePass = () => {
             </span>
           )}
         </div>
-        <Button type="submit">Change password</Button>
+        <Button id='submitButton' type="submit">Change password</Button>
         {apiMessage && <p className={styles.alert}>{apiMessage}</p>}
         {apiMessageS && <p className={styles.success}>{apiMessageS}</p>}
       </form>
