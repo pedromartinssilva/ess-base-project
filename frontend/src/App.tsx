@@ -9,6 +9,7 @@ import UserDelete from "./app/home/pages/UserDelete";
 import PasswordRecovery from "./app/home/pages/Recovery";
 import ChangePass from "./app/home/pages/ChangePass";
 import MediaExchange from "./app/home/pages/MediaExchange";
+import Notifications from "./app/home/pages/Notifications";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: "/messages",
     Component: MediaExchange,
+  },
+  {
+    path: "/notifications",
+    Component: Notifications,
   },
 ]);
 

@@ -30,7 +30,7 @@ class NotificationController {
         }).handle(res);
       } catch (error) {
         return new FailureResult({
-          msg: 'Erro ao recuperar notificações',
+          msg: (error as Error).message,
           msgCode: null,
           code: 500
         }).handle(res);

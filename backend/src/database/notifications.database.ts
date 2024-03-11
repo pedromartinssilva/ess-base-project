@@ -4,6 +4,15 @@ export default class NotificationsDatabase {
     private static instance: NotificationsDatabase;
     private unreadMessages: IMessage[];
 
+    private constructor() { // Adicione um construtor privado
+        this.unreadMessages = []; // Inicialize unreadMessages como uma array vazia
+    }
+    static getInstance() {
+        if (!NotificationsDatabase.instance) {
+            NotificationsDatabase.instance = new NotificationsDatabase();
+        }
+        return NotificationsDatabase.instance;
+    }    
     addNotification(message: IMessage) {
         // Verifique se o valor de timestamp já é um objeto Date
         if (typeof message.timestamp === 'string') {
@@ -22,13 +31,10 @@ export default class NotificationsDatabase {
     }
 
     getNotifications(participant: string) {
-        return this.unreadMessages.filter(message => (message.receiver === participant)
-        );
-    }
-    static getInstance() {
-        if (!NotificationsDatabase.instance) {
-            NotificationsDatabase.instance = new NotificationsDatabase();
+        if (!this.unreadMessages || this.unreadMessages.length === 0) {
+            return 'No unread messages';
         }
-        return NotificationsDatabase.instance;
-    }    
+        return this.unreadMessages.filter(message => message.receiver === participant);
+    }
+
 }
