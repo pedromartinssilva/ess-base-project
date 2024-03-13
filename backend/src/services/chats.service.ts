@@ -4,6 +4,12 @@ import path from 'path';
 
 const filePath = path.join(__dirname, '..', 'database', 'chats.json');
 
+function sortChats(chats: any[]): any[] {
+    return chats.sort((a: any, b: any) => {
+        return new Date(b.messages[0].timestamp).getTime() - new Date(a.messages[0].timestamp).getTime();
+    });
+}
+
 export const addChat = (newChat: any) => {
     try {
         let chats: IChat[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -16,12 +22,10 @@ export const addChat = (newChat: any) => {
         const notFixed = chats.filter(conv => !conv.fixed);
 
         // Ordenar chats não fixadas com base no timestamp da última mensagem (a mais recente)
-        notFixed.sort((a: any, b: any) => {
-            return new Date(b.messages[0].timestamp).getTime() - new Date(a.messages[0].timestamp).getTime();
-        });
+        const sortedNotFixed  = sortChats(notFixed);
 
         // Concatenar chats fixadas e não fixadas, mantendo as fixadas no topo
-        const sortedChats = [...fixed, ...notFixed];
+        const sortedChats = [...fixed, ...sortedNotFixed ];
 
         // Escrever os chats de volta no arquivo
         fs.writeFileSync(filePath, JSON.stringify(sortedChats));
@@ -38,15 +42,12 @@ export const getChats = () => {
         
         // Separar chats fixadas das não fixadas
         const fixed = chats.filter(conv => conv.fixed);
-        const notFixed = chats.filter(conv => !conv.fixed);
+        let notFixed = chats.filter(conv => !conv.fixed);
 
-        // Ordenar chats não fixadas com base no timestamp da última mensagem (a mais recente)
-        notFixed.sort((a: any, b: any) => {
-            return new Date(b.messages[0].timestamp).getTime() - new Date(a.messages[0].timestamp).getTime();
-        });
+        const sortedNotFixed = sortChats(notFixed);
 
         // Concatenar chats fixadas e não fixadas, mantendo as fixadas no topo
-        const sortedChats = [...fixed, ...notFixed];
+        const sortedChats = [...fixed, ...sortedNotFixed];
 
         return sortedChats;
     } catch (error: any) {
