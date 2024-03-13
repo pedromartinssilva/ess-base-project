@@ -1,15 +1,32 @@
 import { Router, Request, Response } from 'express';
 import { FailureResult, SuccessResult } from '../utils/result';
 import MessagesDatabase from '../database/message.database';
+import NotificationsDatabase from '../database/notifications.database';
 import { IMessage } from '../interfaces/chat.interface';
 import * as fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
-
+import multer from 'multer';
+import path from 'path';
 
 class MessageController {
   private prefix: string = '/messages';
   public router: Router;
   private database: MessagesDatabase = MessagesDatabase.getInstance();
+  private notificationsDatabase: NotificationsDatabase = NotificationsDatabase.getInstance();
+
+  public storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+       cb(null, './src/upload/');
+    },
+    filename: function (req, file, cb) {
+      const customName = req.body.customName;
+      const fileExtension = path.extname(file.originalname);
+      const newFileName = customName + fileExtension;
+      cb(null, newFileName);
+    },
+  });
+   
+  public uploadMedia = multer({ storage: this.storage });
 
   constructor(router: Router) {
     this.router = router;
@@ -17,20 +34,25 @@ class MessageController {
   }
 
   private initRoutes() {    
-    this.router.get(`${this.prefix}/:firstUser/:secondUser`, (req: Request, res: Response) =>
+    this.router.get(`${this.prefix}/get/:firstUser/:secondUser`, (req: Request, res: Response) =>
     this.getMessage(req, res));
 
-    this.router.post(`${this.prefix}/:sender/:receiver/upload/`, (req: Request, res: Response) =>
+    this.router.post(`${this.prefix}/send/:sender/:receiver/upload/`, (req: Request, res: Response) =>
     this.getMedia(req, res));
 
-    this.router.post(`${this.prefix}/:sender/:receiver`, (req: Request, res: Response) =>
+    this.router.post(`${this.prefix}/send/:sender/:receiver`, (req: Request, res: Response) =>
     this.postMessage(req, res));
 
-    this.router.post(`${this.prefix}/:sender/:receiver/upload/:path`, (req: Request, res: Response) =>
+    this.router.post(`${this.prefix}/send/:sender/:receiver/upload/:path`, (req: Request, res: Response) =>
     this.postFile(req, res));
 
-    this.router.delete(`${this.prefix}/:sender/:receiver/:id`, (req: Request, res: Response) =>
+    this.router.delete(`${this.prefix}/delete/:sender/:receiver/:id`, (req: Request, res: Response) =>
     this.deleteMessage(req, res));
+
+    this.router.post(`${this.prefix}/upload`, this.uploadMedia.single('file'), (req, res) => {
+      console.log('File received:', req.file);
+      res.sendStatus(200);
+     });
   }
 
   private async getMessage(req: Request, res: Response){
@@ -112,6 +134,8 @@ class MessageController {
     }
 
     this.database.addMessage(messageSent);
+    // Adiciona a notificação ao banco de dados de notificações
+    this.notificationsDatabase.addNotification(messageSent);    
     console.log(this.database);
 
     return new SuccessResult({
@@ -131,24 +155,31 @@ class MessageController {
       const sender = req.params.sender
       const receiver = req.params.receiver
       const messageId = uuidv4();
-
+      const fileSizeInBytes = Buffer.byteLength(data, 'base64');
+      const fileSizeInMB = fileSizeInBytes / (1024 * 1024);
       const timestampNumber = Date.now();
+      
+      if (fileSizeInMB > 5) {
+        return new FailureResult({
+          msg: 'Maximum file size exceeded'
+        }).handle(res);
+      } else {
+        const messageSent: IMessage = {
+          id: messageId,
+          sender: sender,
+          content: data,
+          receiver: receiver,
+          media: true,
+          timestamp: new Date(timestampNumber)
+        }
+    
+        this.database.addMessage(messageSent);
 
-      const messageSent: IMessage = {
-        id: messageId,
-        sender: sender,
-        content: data,
-        receiver: receiver,
-        media: true,
-        timestamp: new Date(timestampNumber)
+        return new SuccessResult({
+            msg: 'File sent successfully',
+            data: {sender, data, receiver, messageId},
+        }).handle(res);
       }
-  
-      this.database.addMessage(messageSent);
-
-      return new SuccessResult({
-          msg: 'File sent successfully',
-          data: {sender, data, receiver, messageId},
-      }).handle(res);
     });
 }
 }
