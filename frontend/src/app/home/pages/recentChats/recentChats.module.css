@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.chatList {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.chatItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.chatItem:last-child {
+    border-bottom: none;
+}
+
+.chatTitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.chatLastMessageTimestamp {
+    font-size: 0.6rem;
+    color: #666;
+}
+
+.chatLastMessage {
+    font-size: 1rem;
+}
+
+.chatItemContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
