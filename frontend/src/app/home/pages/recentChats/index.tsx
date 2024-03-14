@@ -87,7 +87,7 @@ const RecentChats: React.FC = () => {
                             src={pinIcon}
                             alt='Fixar'
                             onClick={() => handleFixChat(chat.id)}
-                            style={{ opacity: chat.fixed ? 1.0 : 0.3 }} />
+                            style={{ opacity: chat.fixed ? 1.0 : '' }} />
                     </div>
                 </div>
                 <div className={styles.chatItemContent}>
