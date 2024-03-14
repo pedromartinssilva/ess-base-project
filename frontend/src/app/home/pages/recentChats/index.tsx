@@ -62,7 +62,7 @@ const RecentChats: React.FC = () => {
     const handleFixChat = async (chatId: string) => {
         try {
             await axios.put(`http://localhost:5001/api/chats/${chatId}/fix`);
-            setChats(chats.map(chat => chat.id === chatId ? { ...chat, fixed: true } : chat));
+            fetchRecentChats();
         } catch (error) {
             console.error('Erro ao fixar a conversa:', error);
         }
