@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import styles from './recentChats.module.css';
+import pinIcon from '../assets/pin.png'
+import trashIcon from '../assets/trash-can.png'
 
 interface IMessage {
     content: string;
@@ -55,7 +57,13 @@ const RecentChats: React.FC = () => {
         <ul className={styles.chatList}>
             {chats.map((chat, index) => (
             <li key={index} className={styles.chatItem}>
-                <div className={styles.chatTitle}>{chat.participants.slice(1).join(', ')}</div>
+                <div className={styles.chatTitleandActions}>
+                    <div className={styles.chatTitle}>{chat.participants.slice(1).join(', ')}</div>
+                    <div className={styles.chatActions}>
+                        <img className={styles.trashIcon} src={trashIcon} alt='Deletar' />
+                        <img className={styles.pinIcon} src={pinIcon} alt='Fixar' />
+                    </div>
+                </div>
                 <div className={styles.chatItemContent}>
                     <div className={styles.chatLastMessage}> {chat.messages.slice(-1)[0].content}</div>
                     <div className={styles.chatLastMessageTimestamp}>{formatDate(chat.messages[0].timestamp)}</div>
