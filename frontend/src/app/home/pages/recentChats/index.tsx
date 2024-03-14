@@ -36,7 +36,7 @@ const formatDate = (date: Date | string | number): string => {
 
 const RecentChats: React.FC = () => {
     const [chats, setChats] = useState<IChat[]>([]);
-    
+
     const fetchRecentChats = async () => {
         try {
             const response = await axios.get('http://localhost:5001/api/chats');
@@ -86,7 +86,8 @@ const RecentChats: React.FC = () => {
                             className={styles.pinIcon}
                             src={pinIcon}
                             alt='Fixar'
-                            onClick={() => handleFixChat(chat.id)} />
+                            onClick={() => handleFixChat(chat.id)}
+                            style={{ opacity: chat.fixed ? 1.0 : 0.3 }} />
                     </div>
                 </div>
                 <div className={styles.chatItemContent}>
