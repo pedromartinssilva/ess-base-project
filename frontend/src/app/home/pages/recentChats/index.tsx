@@ -36,24 +36,24 @@ const formatDate = (date: Date | string | number): string => {
 
 const RecentChats: React.FC = () => {
     const [chats, setChats] = useState<IChat[]>([]);
-
+    
+    const fetchRecentChats = async () => {
+        try {
+            const response = await axios.get('http://localhost:5001/api/chats');
+            setChats(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar conversas recentes:', error);
+        }
+    };
+    
     useEffect(() => {
-        const fetchRecentChats = async () => {
-            try {
-                const response = await axios.get('http://localhost:5001/api/chats');
-                setChats(response.data);
-            } catch (error) {
-                console.error('Erro ao buscar conversas recentes:', error);
-            }
-        };
-
         fetchRecentChats();
     }, []);
 
     const handleDeleteChat = async (chatId: string) => {
         try {
             await axios.delete(`http://localhost:5001/api/chats/${chatId}`);
-            setChats(chats.filter(chat => chat.id !== chatId));
+            fetchRecentChats();
         } catch (error) {
             console.error('Erro ao excluir conversa:', error);
         }
