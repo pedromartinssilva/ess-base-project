@@ -59,6 +59,15 @@ const RecentChats: React.FC = () => {
         }
     };
 
+    const handleFixChat = async (chatId: string) => {
+        try {
+            await axios.put(`http://localhost:5001/api/chats/${chatId}/fix`);
+            setChats(chats.map(chat => chat.id === chatId ? { ...chat, fixed: true } : chat));
+        } catch (error) {
+            console.error('Erro ao fixar a conversa:', error);
+        }
+    };    
+
     return (
         <div className={styles.container}>
         <h2>Conversas Recentes</h2>
@@ -73,7 +82,11 @@ const RecentChats: React.FC = () => {
                             src={trashIcon}
                             alt='Deletar'
                             onClick={() => handleDeleteChat(chat.id)} />
-                        <img className={styles.pinIcon} src={pinIcon} alt='Fixar' />
+                        <img
+                            className={styles.pinIcon}
+                            src={pinIcon}
+                            alt='Fixar'
+                            onClick={() => handleFixChat(chat.id)} />
                     </div>
                 </div>
                 <div className={styles.chatItemContent}>
