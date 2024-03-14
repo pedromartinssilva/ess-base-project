@@ -53,13 +53,14 @@ const router = createBrowserRouter([
     Component: ChangePass,
   },
   {
-    path: "/messages",
+    path: "/messages/:sender/:receiver",
     Component: MediaExchange,
   },
   {
     path: "/notifications",
     Component: Notifications,
   },
+  
 ]);
 
 export default function App() {
