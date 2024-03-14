@@ -34,7 +34,6 @@ const formatDate = (date: Date | string | number): string => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
 };
 
-
 const RecentChats: React.FC = () => {
     const [chats, setChats] = useState<IChat[]>([]);
 
@@ -51,6 +50,15 @@ const RecentChats: React.FC = () => {
         fetchRecentChats();
     }, []);
 
+    const handleDeleteChat = async (chatId: string) => {
+        try {
+            await axios.delete(`http://localhost:5001/api/chats/${chatId}`);
+            setChats(chats.filter(chat => chat.id !== chatId));
+        } catch (error) {
+            console.error('Erro ao excluir conversa:', error);
+        }
+    };
+
     return (
         <div className={styles.container}>
         <h2>Conversas Recentes</h2>
@@ -60,7 +68,11 @@ const RecentChats: React.FC = () => {
                 <div className={styles.chatTitleandActions}>
                     <div className={styles.chatTitle}>{chat.participants.slice(1).join(', ')}</div>
                     <div className={styles.chatActions}>
-                        <img className={styles.trashIcon} src={trashIcon} alt='Deletar' />
+                        <img
+                            className={styles.trashIcon}
+                            src={trashIcon}
+                            alt='Deletar'
+                            onClick={() => handleDeleteChat(chat.id)} />
                         <img className={styles.pinIcon} src={pinIcon} alt='Fixar' />
                     </div>
                 </div>
