@@ -22,26 +22,14 @@ interface IChat {
     messages: IMessage[];
 }
 
-// Função auxiliar para formatar a data
-const formatDate = (date: Date | string | number): string => {
-    // Se a data for uma string ou um número, converta-a para um objeto Date
-    const dateObj = typeof date === 'string' || typeof date === 'number' ? new Date(date) : date;
-
-    const day = dateObj.getDate().toString().padStart(2, '0');
-    const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // Os meses começam em 0
-    const year = dateObj.getFullYear();
-    const hours = dateObj.getHours().toString().padStart(2, '0');
-    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
-
-    return `${day}/${month}/${year} ${hours}:${minutes}`;
-};
-
 const RecentChats: React.FC = () => {
     const [chats, setChats] = useState<IChat[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [chatToDelete, setChatToDelete] = useState<string | null>(null);
     const navigate = useNavigate();
-
+    
     const fetchRecentChats = async (keyword?: string) => {
         try {
             let url = 'http://localhost:5001/api/chats';
@@ -65,18 +53,45 @@ const RecentChats: React.FC = () => {
     useEffect(() => {
         fetchRecentChats(searchKeyword);
     }, [searchKeyword]);
-
+    
+    const formatDate = (date: Date | string | number): string => {
+        // Se a data for uma string ou um número, converta-a para um objeto Date
+        const dateObj = typeof date === 'string' || typeof date === 'number' ? new Date(date) : date;
+    
+        const day = dateObj.getDate().toString().padStart(2, '0');
+        const month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // Os meses começam em 0
+        const year = dateObj.getFullYear();
+        const hours = dateObj.getHours().toString().padStart(2, '0');
+        const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    
+        return `${day}/${month}/${year} ${hours}:${minutes}`;
+    };
+    
     const handleChatTitleClick = (sender: string, receiver: string) => {
         navigate(`/messages/${sender}/${receiver}`);
     };
 
     const handleDeleteChat = async (chatId: string) => {
-        try {
-            await axios.delete(`http://localhost:5001/api/chats/${chatId}`);
-            fetchRecentChats();
-        } catch (error) {
-            console.error('Erro ao excluir conversa:', error);
+        setChatToDelete(chatId);
+        setShowDeleteConfirmation(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (chatToDelete) {
+            try {
+                await axios.delete(`http://localhost:5001/api/chats/${chatToDelete}`);
+                setShowDeleteConfirmation(false);
+                setChatToDelete(null);
+                fetchRecentChats();
+            } catch (error) {
+                console.error('Erro ao excluir conversa:', error);
+            }
         }
+    };
+    
+    const handleCancelDelete = () => {
+        setShowDeleteConfirmation(false);
+        setChatToDelete(null);
     };
 
     const handleFixChat = async (chatId: string) => {
@@ -95,6 +110,15 @@ const RecentChats: React.FC = () => {
 
     return (
         <div className={styles.container}>
+            {showDeleteConfirmation && (
+                <div className={styles.confirmationModalOverlay}>
+                    <div className={styles.confirmationModal}>
+                        <p>Você tem certeza que deseja excluir essa conversa?</p>
+                        <button className={styles.confirmButton} onClick={handleConfirmDelete}>Confirmar</button>
+                        <button className={styles.cancelButton} onClick={handleCancelDelete}>Cancelar</button>
+                    </div>
+                </div>
+            )}
             <h2>Conversas Recentes</h2>
             <div className={styles.searchContainer}>
                 {searchKeyword && (
