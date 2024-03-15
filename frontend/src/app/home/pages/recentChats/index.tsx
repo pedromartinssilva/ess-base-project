@@ -46,11 +46,15 @@ const RecentChats: React.FC = () => {
                 url += `/search?keyword=${encodeURIComponent(keyword)}`;
             }
             const response = await axios.get(url);
-            setChats(response.data);
             setErrorMessage('');
+            setChats(response.data);
         } catch (error) {
             console.error('Erro ao buscar conversas:', error);
-            setErrorMessage('Erro ao buscar conversas');
+            if (axios.isAxiosError(error)) {
+                if (error.response && error.response.status === 404) {
+                    setErrorMessage('Conversa não encontrada');
+                }
+            }   
             setChats([]);
         }
     };    
@@ -86,6 +90,7 @@ const RecentChats: React.FC = () => {
         <div className={styles.container}>
         <h2>Conversas Recentes</h2>
         <input
+            className={styles.searchInput}
             type="text"
             placeholder="Pesquisar conversas..."
             value={searchKeyword}

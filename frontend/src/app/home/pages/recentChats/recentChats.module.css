@@ -75,3 +75,8 @@
 .trashIcon:hover, .pinIcon:hover {
     opacity: 1.0;
 }
+
+.searchInput {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
