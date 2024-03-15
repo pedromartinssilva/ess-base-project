@@ -80,8 +80,9 @@
 
 
 .errorMessage {
-    color: rgb(189, 15, 15); 
+    color: rgb(109, 109, 109); 
     font-size: 0.8rem;
+    margin-top: 5rem;
 }
 
 .searchContainer {
