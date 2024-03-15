@@ -113,9 +113,9 @@ const RecentChats: React.FC = () => {
             {showDeleteConfirmation && (
                 <div className={styles.confirmationModalOverlay}>
                     <div className={styles.confirmationModal}>
-                        <p>Você tem certeza que deseja excluir essa conversa?</p>
-                        <button className={styles.confirmButton} onClick={handleConfirmDelete}>Confirmar</button>
+                        <p>Tem certeza que deseja excluir essa conversa?</p>
                         <button className={styles.cancelButton} onClick={handleCancelDelete}>Cancelar</button>
+                        <button className={styles.confirmButton} onClick={handleConfirmDelete}>Confirmar</button>
                     </div>
                 </div>
             )}

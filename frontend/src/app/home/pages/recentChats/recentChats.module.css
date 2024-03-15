@@ -2,11 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 35rem;
+    justify-content: flex-start;
+    width: 400px;
+    height: 70vh;
     padding: 20px;
-    margin: auto;
-    margin-top: 50px;
+    margin: 10vh auto 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .chatList {
@@ -140,6 +143,7 @@
 
 .confirmButton {
     background-color: #f44336;
+    color: white;
     margin: 20px 10px 0px 5px;
     padding: 10px 20px;
     border: none;
@@ -148,8 +152,8 @@
 }
 
 .cancelButton {
-    background-color: #4CAF50; 
-    color: white;
+    background-color: #dbdbdb; 
+    color: rgb(53, 53, 53);
     margin: 20px 10px 0px 5px;
     padding: 10px 20px;
     border: none;
