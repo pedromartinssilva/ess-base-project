@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import styles from './recentChats.module.css';
-import pinIcon from '../assets/pin.png'
-import trashIcon from '../assets/trash-can.png'
+import pinIcon from '../assets/pin.png';
+import trashIcon from '../assets/trash-can.png';
+import { useNavigate } from 'react-router-dom';
+
 
 interface IMessage {
     content: string;
@@ -38,6 +40,7 @@ const RecentChats: React.FC = () => {
     const [chats, setChats] = useState<IChat[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
 
     const fetchRecentChats = async (keyword?: string) => {
         try {
@@ -62,6 +65,10 @@ const RecentChats: React.FC = () => {
     useEffect(() => {
         fetchRecentChats(searchKeyword);
     }, [searchKeyword]);
+
+    const handleChatTitleClick = (sender: string, receiver: string) => {
+        navigate(`/messages/${sender}/${receiver}`);
+    };
 
     const handleDeleteChat = async (chatId: string) => {
         try {
@@ -93,7 +100,7 @@ const RecentChats: React.FC = () => {
             <input
                 className={styles.searchInput}
                 type="text"
-                placeholder="Pesquisar conversas..."
+                placeholder="Filtrar conversas..."
                 value={searchKeyword}
                 onChange={(e) => setSearchKeyword(e.target.value)}/>
             <button
@@ -105,7 +112,7 @@ const RecentChats: React.FC = () => {
             {chats.map((chat, index) => (
             <li key={index} className={styles.chatItem}>
                 <div className={styles.chatTitleandActions}>
-                    <div className={styles.chatTitle}>{chat.participants.slice(1).join(', ')}</div>
+                    <div className={styles.chatTitle} onClick={() => handleChatTitleClick(chat.participants[0], chat.participants[1])}>{chat.participants.slice(1).join(', ')}</div>
                     <div className={styles.chatActions}>
                         <img
                             className={styles.trashIcon}
