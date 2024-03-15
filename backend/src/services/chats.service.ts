@@ -87,11 +87,6 @@ export const searchChats = (keyword: string) => {
 
         // Ordenar as conversas filtradas em ordem alfabética pelo nome do contato/grupo
         conversasFiltradas.sort((a, b) => a.participants.join(' ').toLowerCase().localeCompare(b.participants.join(' ').toLowerCase()));
-
-        // Verificar se há resultados da busca
-        if (conversasFiltradas.length === 0) {
-            throw new Error('Nenhum resultado encontrado');
-        } 
         
         return conversasFiltradas;
     } catch (error: any) {
