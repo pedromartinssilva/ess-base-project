@@ -1,8 +1,35 @@
 import fs from 'fs';
-import { IChat } from '../interfaces/chat.interface';
 import path from 'path';
+import { IMessage, IChat } from '../interfaces/chat.interface';
 
 const filePath = path.join(__dirname, '..', 'database', 'chats.json');
+
+export const updateChats = (newMessage: IMessage) => {
+    try {
+        // Lê as conversas existentes do arquivo chats.json.
+        let chats: IChat[] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+        // Encontrar a conversa correta para a qual a mensagem deve ser adicionada
+        const chat = chats.find(chat =>
+            (chat.participants.includes(newMessage.sender) && chat.participants.includes(newMessage.receiver)) ||
+            (chat.participants.includes(newMessage.receiver) && chat.participants.includes(newMessage.sender))
+        );
+
+        if (chat) {
+            // Adicionar a nova mensagem à conversa encontrada
+            chat.messages.push(newMessage);
+
+            // Atualizar o arquivo JSON com as conversas atualizadas
+            fs.writeFileSync(filePath, JSON.stringify(chats));
+
+            return chats;
+        } else {
+            throw new Error('Conversa não encontrada para a mensagem enviada.');
+        }
+    } catch (error: any) {
+        throw new Error('Erro ao atualizar conversas com mensagem: ' + (error as Error).message);
+    }
+};
 
 export const addChat = (newChat: any) => {
     try {
