@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50%;
+    width: 35rem;
     padding: 20px;
     margin: auto;
     margin-top: 50px;
@@ -32,6 +32,7 @@
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .chatLastMessageTimestamp {
@@ -70,18 +71,40 @@
     margin-left: 5px; 
     opacity: 0.3;
     transition: opacity 0.3s ease; 
+    cursor: pointer;
 }
 
 .trashIcon:hover, .pinIcon:hover {
     opacity: 1.0;
 }
 
-.searchInput {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
 .errorMessage {
     color: rgb(189, 15, 15); 
     font-size: 0.8rem;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+}
+
+.searchInput {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.clearSearchButton {
+    background-color: #f0f0f0;
+    border-color: #cfcfcf;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 50%; 
+    width: 25px; 
+    height: 25px; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
 }

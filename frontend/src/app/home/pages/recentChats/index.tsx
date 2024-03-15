@@ -89,13 +89,17 @@ const RecentChats: React.FC = () => {
     return (
         <div className={styles.container}>
         <h2>Conversas Recentes</h2>
-        <input
-            className={styles.searchInput}
-            type="text"
-            placeholder="Pesquisar conversas..."
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-        />
+        <div className={styles.searchContainer}>
+            <input
+                className={styles.searchInput}
+                type="text"
+                placeholder="Pesquisar conversas..."
+                value={searchKeyword}
+                onChange={(e) => setSearchKeyword(e.target.value)}/>
+            <button
+                className={styles.clearSearchButton}
+                onClick={() => setSearchKeyword('')}> X </button>
+        </div>
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
         <ul className={styles.chatList}>
             {chats.map((chat, index) => (
