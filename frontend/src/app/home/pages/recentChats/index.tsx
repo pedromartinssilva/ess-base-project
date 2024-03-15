@@ -37,6 +37,7 @@ const formatDate = (date: Date | string | number): string => {
 const RecentChats: React.FC = () => {
     const [chats, setChats] = useState<IChat[]>([]);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const fetchRecentChats = async (keyword?: string) => {
         try {
@@ -46,8 +47,11 @@ const RecentChats: React.FC = () => {
             }
             const response = await axios.get(url);
             setChats(response.data);
+            setErrorMessage('');
         } catch (error) {
             console.error('Erro ao buscar conversas:', error);
+            setErrorMessage('Erro ao buscar conversas');
+            setChats([]);
         }
     };    
     
@@ -87,6 +91,7 @@ const RecentChats: React.FC = () => {
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
         />
+        {errorMessage && <p>{errorMessage}</p>}
         <ul className={styles.chatList}>
             {chats.map((chat, index) => (
             <li key={index} className={styles.chatItem}>
