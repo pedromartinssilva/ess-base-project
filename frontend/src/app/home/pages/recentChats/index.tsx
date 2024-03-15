@@ -115,7 +115,7 @@ const RecentChats: React.FC = () => {
                     <div className={styles.confirmationModal}>
                         <p>Tem certeza que deseja excluir essa conversa?</p>
                         <button className={styles.cancelButton} onClick={handleCancelDelete}>Cancelar</button>
-                        <button className={styles.confirmButton} onClick={handleConfirmDelete}>Confirmar</button>
+                        <button className={styles.confirmButton} onClick={handleConfirmDelete} data-cy="delete-chat-confirm" >Confirmar</button>
                     </div>
                 </div>
             )}
@@ -137,7 +137,7 @@ const RecentChats: React.FC = () => {
                     onClick={() => setSearchKeyword('')}> Nova conversa </button> */}
             </div>
         {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-        <ul className={styles.chatList}>
+        <ul className={styles.chatList} data-cy="chat-list">
             {chats.map((chat, index) => (
             <li key={index} className={styles.chatItem}>
                 <div className={styles.chatTitleandActions}>
@@ -147,7 +147,8 @@ const RecentChats: React.FC = () => {
                             className={styles.trashIcon}
                             src={trashIcon}
                             alt='Deletar'
-                            onClick={() => handleDeleteChat(chat.id)} />
+                            onClick={() => handleDeleteChat(chat.id)}
+                            data-cy={`delete-chat-icon-${chat.participants[1]}`} />
                         <img
                             className={styles.pinIcon}
                             src={pinIcon}
