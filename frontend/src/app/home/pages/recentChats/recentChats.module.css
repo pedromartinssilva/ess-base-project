@@ -80,3 +80,8 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.errorMessage {
+    color: rgb(189, 15, 15); 
+    font-size: 0.8rem;
+}

@@ -96,7 +96,7 @@ const RecentChats: React.FC = () => {
             value={searchKeyword}
             onChange={(e) => setSearchKeyword(e.target.value)}
         />
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
         <ul className={styles.chatList}>
             {chats.map((chat, index) => (
             <li key={index} className={styles.chatItem}>
