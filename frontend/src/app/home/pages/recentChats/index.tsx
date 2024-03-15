@@ -134,7 +134,7 @@ const RecentChats: React.FC = () => {
                 </div>
                 <div className={styles.chatItemContent}>
                     <div className={styles.chatLastMessage}> {chat.messages.slice(-1)[0].content}</div>
-                    <div className={styles.chatLastMessageTimestamp}>{formatDate(chat.messages[0].timestamp)}</div>
+                    <div className={styles.chatLastMessageTimestamp}>{formatDate(chat.messages.slice(-1)[0].timestamp)}</div>
                 </div>
             </li>
             ))}
