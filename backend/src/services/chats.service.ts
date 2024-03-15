@@ -69,8 +69,14 @@ export const getChats = () => {
 
         // Ordenar chats não fixadas com base no timestamp da última mensagem (a mais recente)
         notFixed.sort((a: any, b: any) => {
-            return new Date(b.messages[0].timestamp).getTime() - new Date(a.messages[0].timestamp).getTime();
+            // Acessar a última mensagem (mais recente) de cada chat
+            const lastMessageA = a.messages[a.messages.length - 1];
+            const lastMessageB = b.messages[b.messages.length - 1];
+        
+            // Ordenar com base no timestamp da última mensagem
+            return new Date(lastMessageB.timestamp).getTime() - new Date(lastMessageA.timestamp).getTime();
         });
+        
 
         // Concatenar chats fixadas e não fixadas, mantendo as fixadas no topo
         const sortedChats = [...fixed, ...notFixed];
