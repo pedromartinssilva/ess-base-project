@@ -10,8 +10,9 @@ import PasswordRecovery from "./app/home/pages/Recovery";
 import ChangePass from "./app/home/pages/ChangePass";
 import MediaExchange from "./app/home/pages/MediaExchange";
 import Notifications from "./app/home/pages/Notifications";
+import ContactsApp from "./app/home/pages/ContactsApp";
 import RecentChats from "./app/home/pages/RecentChats";
-
+        
 const router = createBrowserRouter([
   {
     path: "*",
@@ -53,6 +54,12 @@ const router = createBrowserRouter([
     path: "/changepass",
     Component: ChangePass,
   },
+        
+  {
+    path: "/contacts", 
+    Component: ContactsApp,
+  },
+        
   {
     path: "/messages/:sender/:receiver",
     Component: MediaExchange,
